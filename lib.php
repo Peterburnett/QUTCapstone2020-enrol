@@ -4,16 +4,27 @@
 defined('MOODLE_INTERNAL') || die();
 class enrol_payment_plugin extends enrol_plugin {
 
+    public function roles_protected() {
+        // Return true if plugin allows manual modification of user enrolments from other code. 
+        //False is usually returned from plugins that synchronise data with external systems, 
+        //otherwise the manual changes would be reverted immediately upon synchronisation.
+        return false;
+    }
 
     public function allow_enrol(){
+        //true means other code can call enrol users false means online the plugin can enrol the users.
         return true;
     }
 
     public function allow_unenrol(){
+        //Is other code allowed to unenrol everybody from one instance or one specific user?    
         return true;
     }
 
     public function allow_manage(){
+        //Return true if plugin allows manual modification of user enrolments from other code.
+        //False is usually returned from plugins that synchronise data with external systems,
+        //otherwise the manual changes would be reverted immediately upon synchronisation.
         return true;
     }
 
