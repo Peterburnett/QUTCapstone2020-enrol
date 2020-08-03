@@ -1,7 +1,7 @@
 
 <?php
 
-//define('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die();
 class enrol_payment_plugin extends enrol_plugin {
 
 
