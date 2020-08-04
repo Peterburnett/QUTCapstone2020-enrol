@@ -4,6 +4,38 @@
 defined('MOODLE_INTERNAL') || die();
 class enrol_payment_plugin extends enrol_plugin {
 
+    public function enrol_page_hook(stdClass $instance){  
+        global $CFG, $USER, $OUTPUT, $PAGE, $DB;
+
+        //saves everything about to happen
+        ob_start();
+        echo '<p> this works <p>';
+
+        //Check the price of the course 
+        if (abs($cost) < 0.01) { 
+            //returns "This course is free."
+            echo '<p>'.get_string('nocost', 'enrol_payment').'</p>';
+        }
+
+        
+        
+            
+        //stops saving 
+        //ob_end_clean();
+
+
+        return $OUTPUT->box(ob_get_clean());
+
+
+    }
+    
+  //  public function get_course_price(courseid){
+//
+  //  }
+    
+    
+
+
     public function roles_protected() {
         // Return true if plugin allows manual modification of user enrolments from other code. 
         //False is usually returned from plugins that synchronise data with external systems, 
