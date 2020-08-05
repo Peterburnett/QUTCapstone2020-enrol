@@ -8,6 +8,6 @@ $plugin->component = 'enrol_payment';      // Full name of the plugin (used for 
 
 // Adding plugin dependencies 
 $plugin->dependencies = array(
-    'mod_foo' => ANY_VERSION,   // The Foo activity must be present (any version).
-    'enrol_plugin' => 2019111200, // The enrolment plugin version 2019111200 or higher must be present.
+    'tool_foo' => ANY_VERSION,   // The Foo activity must be present (any version).
+    'tool_enrolversion' => 2020042102, // The enrolment plugin version 2020042102 or higher must be present.
 );
