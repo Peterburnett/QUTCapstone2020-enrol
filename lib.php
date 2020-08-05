@@ -32,6 +32,9 @@ class enrol_payment_plugin extends enrol_plugin {
   //  public function get_course_price(courseid){
 //
   //  }
+
+
+
     
     
 
