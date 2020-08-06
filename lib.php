@@ -4,30 +4,11 @@
 defined('MOODLE_INTERNAL') || die();
 class enrol_payment_plugin extends enrol_plugin {
 
-    public function enrol_page_hook(stdClass $instance){  
-        global $CFG, $USER, $OUTPUT, $PAGE, $DB;
-
-        //saves everything about to happen
-        ob_start();
-        echo '<p> this works <p>';
-
-        //Check the price of the course 
-        if (abs($cost) < 0.01) { 
-            //returns "This course is free."
-            echo '<p>'.get_string('nocost', 'enrol_payment').'</p>';
-        }
+    // public function enrol_page_hook(stdClass $instance){  
+    //     global $CFG, $USER, $OUTPUT, $PAGE, $DB;
 
         
-        
-            
-        //stops saving 
-        //ob_end_clean();
-
-
-        return $OUTPUT->box(ob_get_clean());
-
-
-    }
+    // }
     
   //  public function get_course_price(courseid){
 //
@@ -36,28 +17,32 @@ class enrol_payment_plugin extends enrol_plugin {
     
 
 
-    public function roles_protected() {
+    public function roles_protected($instance) {
         // Return true if plugin allows manual modification of user enrolments from other code. 
         //False is usually returned from plugins that synchronise data with external systems, 
         //otherwise the manual changes would be reverted immediately upon synchronisation.
         return false;
     }
 
-    public function allow_enrol(){
+    public function allow_enrol($instance){
         //true means other code can call enrol users false means online the plugin can enrol the users.
         return true;
     }
 
-    public function allow_unenrol(){
+    public function allow_unenrol($instance){
         //Is other code allowed to unenrol everybody from one instance or one specific user?    
         return true;
     }
 
-    public function allow_manage(){
+    public function allow_manage($instance){
         //Return true if plugin allows manual modification of user enrolments from other code.
         //False is usually returned from plugins that synchronise data with external systems,
         //otherwise the manual changes would be reverted immediately upon synchronisation.
         return true;
+    }
+
+    public function show_enrolme_link(stdClass $instance) {
+        return ($instance->status == ENROL_INSTANCE_ENABLED);
     }
 
     /**
