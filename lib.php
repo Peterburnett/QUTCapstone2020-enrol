@@ -4,11 +4,19 @@
 defined('MOODLE_INTERNAL') || die();
 class enrol_payment_plugin extends enrol_plugin {
 
-    // public function enrol_page_hook(stdClass $instance){  
-    //     global $CFG, $USER, $OUTPUT, $PAGE, $DB;
+     public function enrol_page_hook(stdClass $instance){  
+         global $CFG, $USER, $OUTPUT, $PAGE, $DB;
 
+        ob_start();
         
-    // }
+        echo "<p><b>To enrol into a class please pay the amount below</b></p>";
+
+        echo "<p>Price: $</p>";
+
+        echo "<button type='button'>Enrol now</button>";
+
+        return $OUTPUT->box(ob_get_clean());
+     }
     
   //  public function get_course_price(courseid){
 //
@@ -17,11 +25,18 @@ class enrol_payment_plugin extends enrol_plugin {
     
 
 
-    public function roles_protected($instance) {
-        // Return true if plugin allows manual modification of user enrolments from other code. 
-        //False is usually returned from plugins that synchronise data with external systems, 
-        //otherwise the manual changes would be reverted immediately upon synchronisation.
-        return false;
+    // public function roles_protected($instance) {
+    //     // Return true if plugin allows manual modification of user enrolments from other code. 
+    //     //False is usually returned from plugins that synchronise data with external systems, 
+    //     //otherwise the manual changes would be reverted immediately upon synchronisation.
+    //     return false;
+    // }
+
+    public function can_delete_instance($instance){
+        return true;
+    }
+    public function can_hide_show_instance($instance){
+        return true;
     }
 
     public function allow_enrol($instance){
@@ -77,7 +92,6 @@ class enrol_payment_plugin extends enrol_plugin {
      * @return void                                                                                                                 
      */                                                                                                                             
     public function edit_instance_validation($data, $files, $instance, $context) {
-
     }
 
         /**                                                                                                                             
