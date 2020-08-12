@@ -87,6 +87,6 @@ class enrol_payment_plugin extends enrol_plugin {
      * @return boolean                                                                                                              
      */                                                                                                                             
     public function can_add_instance($courseid) {  
-
+        return true;
     }
 }
