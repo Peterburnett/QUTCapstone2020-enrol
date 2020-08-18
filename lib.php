@@ -13,7 +13,13 @@ class enrol_payment_plugin extends enrol_plugin {
 
         echo "<p>Price: $</p>";
 
-        echo "<button type='button'>Enrol now</button>";
+        if(array_key_exists('paymentButton',$_POST)){
+            echo "<p>button selected</p>";
+        }
+        
+        echo  '<button onClick="window.location=\'' . $CFG->wwwroot . '\';">Enrol Now!</button>';
+        
+        
 
         return $OUTPUT->box(ob_get_clean());
      }
