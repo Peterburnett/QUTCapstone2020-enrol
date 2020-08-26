@@ -1,66 +1,65 @@
-
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Payment enrolment plugin.
+ *
+ * This plugin allows you to set up paid courses.
+ *
+ * @package    enrol_payment
+ * @copyright  2020 Aaron Dang
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 defined('MOODLE_INTERNAL') || die();
 class enrol_payment_plugin extends enrol_plugin {
 
-    public function enrol_page_hook(stdClass $instance){  
-        global $CFG, $USER, $OUTPUT, $PAGE, $DB;
-
-        //saves everything about to happen
-        ob_start();
-        echo '<p> this works <p>';
-
-        //Check the price of the course 
-        if (abs($cost) < 0.01) { 
-            //returns "This course is free."
-            echo '<p>'.get_string('nocost', 'enrol_payment').'</p>';
-        }
-
-        
-        
-            
-        //stops saving 
-        //ob_end_clean();
-
-
-        return $OUTPUT->box(ob_get_clean());
-
-
+     public function enrol_page_hook(stdClass $instance){  
+         global $CFG, $USER, $OUTPUT, $PAGE, $DB, $html;
+        $html .= html_writer::tag('p',get_string('enrol','enrol_payment'));
+        $html .= html_writer::tag('p',get_string('price','enrol_payment'));
+        $html .= html_writer::tag('button onClick="window.location=\'' . $CFG->wwwroot . '\';"','enrol now');
+        return $html;
+     }
+    
+    public function can_delete_instance($instance){
+        return true;
     }
-    
-  //  public function get_course_price(courseid){
-//
-  //  }
-
-
-
-    
-    
-
-
-    public function roles_protected() {
-        // Return true if plugin allows manual modification of user enrolments from other code. 
-        //False is usually returned from plugins that synchronise data with external systems, 
-        //otherwise the manual changes would be reverted immediately upon synchronisation.
-        return false;
+    public function can_hide_show_instance($instance){
+        return true;
     }
 
-    public function allow_enrol(){
+    public function allow_enrol($instance){
         //true means other code can call enrol users false means online the plugin can enrol the users.
         return true;
     }
 
-    public function allow_unenrol(){
+    public function allow_unenrol($instance){
         //Is other code allowed to unenrol everybody from one instance or one specific user?    
         return true;
     }
 
-    public function allow_manage(){
+    public function allow_manage($instance){
         //Return true if plugin allows manual modification of user enrolments from other code.
         //False is usually returned from plugins that synchronise data with external systems,
         //otherwise the manual changes would be reverted immediately upon synchronisation.
         return true;
+    }
+
+    public function show_enrolme_link(stdClass $instance) {
+        return ($instance->status == ENROL_INSTANCE_ENABLED);
     }
 
     /**
@@ -95,7 +94,6 @@ class enrol_payment_plugin extends enrol_plugin {
      * @return void                                                                                                                 
      */                                                                                                                             
     public function edit_instance_validation($data, $files, $instance, $context) {
-
     }
 
         /**                                                                                                                             
@@ -103,8 +101,10 @@ class enrol_payment_plugin extends enrol_plugin {
      *                                                                                                                              
      * @param int $courseid                                                                                                         
      * @return boolean                                                                                                              
-     */                                                                                                                             
-    public function can_add_instance($courseid) {  
+     */ 
 
+    public function can_add_instance($courseid) {  
+        return true;
     }
+
 }
