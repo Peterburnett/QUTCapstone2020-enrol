@@ -35,15 +35,6 @@ class enrol_payment_plugin extends enrol_plugin {
         return $html;
      }
     
-    
-
-
-    // public function roles_protected($instance) {
-    //     // Return true if plugin allows manual modification of user enrolments from other code. 
-    //     //False is usually returned from plugins that synchronise data with external systems, 
-    //     //otherwise the manual changes would be reverted immediately upon synchronisation.
-    //     return false;
-    // }
 
     public function can_delete_instance($instance){
         return true;
@@ -112,8 +103,10 @@ class enrol_payment_plugin extends enrol_plugin {
      *                                                                                                                              
      * @param int $courseid                                                                                                         
      * @return boolean                                                                                                              
-     */                                                                                                                             
+     */ 
+
     public function can_add_instance($courseid) {  
         return true;
     }
+
 }
