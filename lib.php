@@ -31,11 +31,9 @@ class enrol_payment_plugin extends enrol_plugin {
         $html .= html_writer::tag('p',get_string('enrol','enrol_payment'));
         $html .= html_writer::tag('p',get_string('price','enrol_payment'));
         $html .= html_writer::tag('button onClick="window.location=\'' . $CFG->wwwroot . '\';"','enrol now');
-
         return $html;
      }
     
-
     public function can_delete_instance($instance){
         return true;
     }
