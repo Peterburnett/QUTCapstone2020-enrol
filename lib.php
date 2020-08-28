@@ -27,10 +27,16 @@ defined('MOODLE_INTERNAL') || die();
 class enrol_payment_plugin extends enrol_plugin {
 
      public function enrol_page_hook(stdClass $instance){  
-         global $CFG, $USER, $OUTPUT, $PAGE, $DB, $html;
+            global $CFG, $USER, $OUTPUT, $PAGE, $DB, $html;
+        $courseid = $instance->courseid;
+        $tablename = 'tool_paymentplugin_course';
+        $record = $DB->get_record($tablename, ['courseid' => $courseid]);
+        $cost = $record->cost;
+        
         $html .= html_writer::tag('p',get_string('enrol','enrol_payment'));
-        $html .= html_writer::tag('p',get_string('price','enrol_payment'));
-        $html .= html_writer::tag('button onClick="window.location=\'' . $CFG->wwwroot . '\';"','enrol now');
+        $html .= html_writer::tag('p',get_string('price','enrol_payment', $cost));
+        $html .= html_writer::tag('button onClick="window.location=\'' . $CFG->wwwroot .
+            '/admin/tool/paymentplugin/purchase.php?id=' . $courseid . '\';"','enrol now');
         return $html;
      }
     
@@ -94,6 +100,7 @@ class enrol_payment_plugin extends enrol_plugin {
      * @return void                                                                                                                 
      */                                                                                                                             
     public function edit_instance_validation($data, $files, $instance, $context) {
+        return array();
     }
 
         /**                                                                                                                             
