@@ -26,47 +26,47 @@
 defined('MOODLE_INTERNAL') || die();
 class enrol_payment_plugin extends enrol_plugin {
 
-     public function enrol_page_hook(stdClass $instance){  
+    public function enrol_page_hook(stdClass $instance) {
         global $CFG, $DB;
 
         $courseid = $instance->courseid;
         $tablename = 'tool_paymentplugin_course';
         $record = $DB->get_record($tablename, ['courseid' => $courseid]);
         $cost = $record->cost;
-        
+
         if ($cost != 0) {
-            $html = html_writer::tag('p',get_string('enrol','enrol_payment'));
-            $html .= html_writer::tag('p',get_string('price','enrol_payment', $cost));
+            $html = html_writer::tag('p', get_string('enrol', 'enrol_payment'));
+            $html .= html_writer::tag('p', get_string('price', 'enrol_payment', $cost));
             $html .= html_writer::tag('button onClick="window.location=\'' . $CFG->wwwroot .
-                '/admin/tool/paymentplugin/purchase.php?id=' . $courseid . '\';"','enrol now');
-        }
-        else {
-            $html = html_writer::tag('p',get_string('errorcoursecost','enrol_payment'));
+                '/admin/tool/paymentplugin/purchase.php?id=' . $courseid . '\';"', 'enrol now');
+        } else {
+            $html = html_writer::tag('p', get_string('errorcoursecost', 'enrol_payment'));
         }
         return $html;
-     }
-    
-    public function can_delete_instance($instance){
-        return true;
     }
-    public function can_hide_show_instance($instance){
+
+    public function can_delete_instance($instance) {
         return true;
     }
 
-    public function allow_enrol($instance){
-        //true means other code can call enrol users false means online the plugin can enrol the users.
+    public function can_hide_show_instance($instance) {
         return true;
     }
 
-    public function allow_unenrol($instance){
-        //Is other code allowed to unenrol everybody from one instance or one specific user?    
+    public function allow_enrol($instance) {
+        // True means other code can call enrol users false means online the plugin can enrol the users.
         return true;
     }
 
-    public function allow_manage($instance){
-        //Return true if plugin allows manual modification of user enrolments from other code.
-        //False is usually returned from plugins that synchronise data with external systems,
-        //otherwise the manual changes would be reverted immediately upon synchronisation.
+    public function allow_unenrol($instance) {
+        // Is other code allowed to unenrol everybody from one instance or one specific user?
+        return true;
+    }
+
+    public function allow_manage($instance) {
+        // Return true if plugin allows manual modification of user enrolments from other code.
+        // False is usually returned from plugins that synchronise data with external systems,
+        // otherwise the manual changes would be reverted immediately upon synchronisation.
         return true;
     }
 
@@ -83,41 +83,39 @@ class enrol_payment_plugin extends enrol_plugin {
         return true;
     }
 
-     /**                                                                                                                             
-     * Add elements to the edit instance form.                                                                                      
-     *                                                                                                                              
-     * @param stdClass $instance                                                                                                    
-     * @param MoodleQuickForm $mform                                                                                                
-     * @param context $context                                                                                                      
-     * @return bool                                                                                                                 
-     */                                                                                                                             
+    /**
+     * Add elements to the edit instance form.
+     *
+     * @param stdClass $instance
+     * @param MoodleQuickForm $mform
+     * @param context $context
+     * @return bool
+     */
     public function edit_instance_form($instance, MoodleQuickForm $mform, $context) {
     }
 
-        /**                                                                                                                             
-     * Perform custom validation of the data used to edit the instance.                                                             
-     *                                                                                                                              
-     * @param array $data array of ("fieldname"=>value) of submitted data                                                           
-     * @param array $files array of uploaded files "element_name"=>tmp_file_path                                                    
-     * @param object $instance The instance loaded from the DB                                                                      
-     * @param context $context The context of the instance we are editing                                                           
-     * @return array of "element_name"=>"error_description" if there are errors,                                                    
-     *         or an empty array if everything is OK.                                                                               
-     * @return void                                                                                                                 
-     */                                                                                                                             
+    /**
+     * Perform custom validation of the data used to edit the instance.
+     *
+     * @param array $data array of ("fieldname"=>value) of submitted data
+     * @param array $files array of uploaded files "element_name"=>tmp_file_path
+     * @param object $instance The instance loaded from the DB
+     * @param context $context The context of the instance we are editing
+     * @return array of "element_name"=>"error_description" if there are errors,
+     *         or an empty array if everything is OK.
+     * @return void
+     */
     public function edit_instance_validation($data, $files, $instance, $context) {
         return array();
     }
 
-        /**                                                                                                                             
-     * Return true if we can add a new instance to this course.                                                                     
-     *                                                                                                                              
-     * @param int $courseid                                                                                                         
-     * @return boolean                                                                                                              
-     */ 
-
-    public function can_add_instance($courseid) {  
+    /**
+     * Return true if we can add a new instance to this course.
+     *
+     * @param int $courseid
+     * @return boolean
+     */
+    public function can_add_instance($courseid) {
         return true;
     }
-
 }
