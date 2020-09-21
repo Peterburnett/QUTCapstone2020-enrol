@@ -31,8 +31,12 @@ class enrol_payment_plugin extends enrol_plugin {
 
         $courseid = $instance->courseid;
         $tablename = 'tool_paymentplugin_course';
-        $record = $DB->get_record($tablename, ['courseid' => $courseid]);
-        $cost = $record->cost;
+        if ($DB->record_exists($tablename, ['courseid' => $courseid])) {
+            $record = $DB->get_record($tablename, ['courseid' => $courseid]);
+            $cost = $record->cost;
+        } else {
+            $cost = 0;
+        }
 
         if ($cost != 0) {
             $html = html_writer::tag('p', get_string('enrol', 'enrol_payment'));
