@@ -25,11 +25,11 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2020082600;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2019111200;        // Requires this Moodle version
-$plugin->component = 'enrol_payment';      // Full name of the plugin (used for diagnostics)
+$plugin->version   = 2020082600;
+$plugin->requires  = 2019111200;
+$plugin->component = 'enrol_payment';
 
-// Adding plugin dependencies 
+// Adding plugin dependencies to paymentplugin.
 $plugin->dependencies = array(
-    'tool_paymentplugin' => 2020042101, // The enrolment plugin version 2020042101 or higher must be present.
+    'tool_paymentplugin' => 2020042101
 );
