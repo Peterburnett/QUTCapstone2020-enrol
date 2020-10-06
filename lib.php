@@ -57,17 +57,17 @@ class enrol_payment_plugin extends enrol_plugin {
         return true;
     }
 
-    public function allow_enrol($instance) {
+    public function allow_enrol(stdClass $instance) {
         // True means other code can call enrol users false means online the plugin can enrol the users.
         return true;
     }
 
-    public function allow_unenrol($instance) {
+    public function allow_unenrol(stdClass $instance) {
         // Is other code allowed to unenrol everybody from one instance or one specific user?
         return true;
     }
 
-    public function allow_manage($instance) {
+    public function allow_manage(stdClass $instance) {
         // Return true if plugin allows manual modification of user enrolments from other code.
         // False is usually returned from plugins that synchronise data with external systems,
         // otherwise the manual changes would be reverted immediately upon synchronisation.
