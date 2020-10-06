@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->version   = 2020082600;
-$plugin->requires  = 2019111200;
+$plugin->requires  = 2018051714;
 $plugin->component = 'enrol_payment';
 
 // Adding plugin dependencies to paymentplugin.
